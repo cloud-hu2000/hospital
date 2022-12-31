@@ -4,11 +4,14 @@ import com.example.hospital.entity.AuditResult;
 import com.example.hospital.mapper.AuditResultMapper;
 import com.example.hospital.dao.AuditResultDao;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author CloudHu
@@ -17,4 +20,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuditResultDaoImpl extends ServiceImpl<AuditResultMapper, AuditResult> implements AuditResultDao {
 
+    @Autowired
+    private AuditResultMapper auditResultMapper;
+
+    public boolean insertAuditResult(AuditResult auditResult) {
+        boolean flag = auditResultMapper.insert(auditResult) > 0;
+        return flag;
+    }
+
+    public boolean deleteAuditResult(int id) {
+        boolean flag = auditResultMapper.deleteById(id) > 0;
+        return flag;
+    }
+
+    public boolean updateAuditResult(AuditResult auditResult) {
+        boolean flag = auditResultMapper.updateById(auditResult) > 0;
+        return flag;
+    }
+
+    public List<AuditResult> getAllAuditResult() {
+        List<AuditResult> list = auditResultMapper.selectList(null);
+        return list;
+    }
 }
