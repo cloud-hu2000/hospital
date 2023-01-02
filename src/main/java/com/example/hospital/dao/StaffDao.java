@@ -3,6 +3,8 @@ package com.example.hospital.dao;
 import com.example.hospital.entity.Staff;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface StaffDao extends IService<Staff> {
 
+    boolean insertStaff(Staff staff);
+
+    boolean deleteStaff(int id);
+
+    boolean updateStaff(Staff staff);
+
+    Staff getStaffByID(int id);
+
+    List<Staff> getAllStaff();
 }
