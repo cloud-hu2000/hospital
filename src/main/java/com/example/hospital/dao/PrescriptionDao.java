@@ -22,4 +22,6 @@ public interface PrescriptionDao extends IService<Prescription> {
     boolean pay(Integer id);
 
     boolean receive(Integer id);
+
+    boolean drugRefund(Integer prescriptionId);
 }

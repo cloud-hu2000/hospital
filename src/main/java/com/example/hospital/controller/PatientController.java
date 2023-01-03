@@ -3,6 +3,8 @@ package com.example.hospital.controller;
 
 import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.PatientDaoImpl;
+import com.example.hospital.dao.impl.PrescriptionDaoImpl;
+import com.example.hospital.dao.impl.RegisterRecordDaoImpl;
 import com.example.hospital.dto.Result;
 import com.example.hospital.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,37 @@ public class PatientController {
     @Autowired
     private PatientDaoImpl patientDaoImpl;
 
+    @Autowired
+    private RegisterRecordDaoImpl registerRecordDao;
+
+    @Autowired
+    private PrescriptionDaoImpl prescriptionDao;
+
+    /**
+     * 日内瓦！退钱！
+     * @author CloudHu
+     * @date 2023/1/3 14:25
+    */
+    @RequestMapping("/drugRefund")
+    public Result drugRefund(Integer prescriptionId){
+        boolean flag = prescriptionDao.drugRefund(prescriptionId);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
+
+    /**
+     * 取消挂号
+     * @author CloudHu
+     * @date 2023/1/3 13:51
+    */
+    @RequestMapping("/cancelRegister")
+    public Result cancelRegister(Integer recordId){
+        boolean flag = registerRecordDao.cancelRegister(recordId);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
     // 添加患者
     @PostMapping
     public Result insertPatient(@RequestBody Patient patient) {
         boolean flag = patientDaoImpl.insertPatient(patient);
-        System.out.println("json:" + patient);
         return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
     }
 
@@ -43,7 +71,6 @@ public class PatientController {
     // 按id修改患者信息
     @PutMapping
     public Result updatePatient(@RequestBody Patient patient) {
-        System.out.println("json:" + patient);
         boolean flag = patientDaoImpl.updatePatient(patient);
         return new Result(flag ? Code.UPDATE_OK : Code.UPDATE_ERR, flag);
     }
@@ -65,5 +92,7 @@ public class PatientController {
         String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
         return new Result(code, list, msg);
     }
+
+
 }
 

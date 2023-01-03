@@ -1,5 +1,6 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.hospital.entity.RegisterRecord;
 import com.example.hospital.mapper.RegisterRecordMapper;
 import com.example.hospital.dao.RegisterRecordDao;
@@ -27,5 +28,26 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
     @Override
     public RegisterRecord checkRecord(int PatientId) {
         return registerRecordMapper.selectById(PatientId);
+    }
+
+    @Override
+    public boolean hangUp(Integer id) {
+        UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",id).set("is_hang_up",1);
+        return registerRecordMapper.update(null,updateWrapper)>0;
+    }
+
+    @Override
+    public boolean cancelHangUp(Integer id) {
+        UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",id).set("is_hang_up",0);
+        return registerRecordMapper.update(null,updateWrapper)>0;
+    }
+
+    @Override
+    public boolean cancelRegister(Integer recordId) {
+        UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",recordId).set("is_canceled",1);
+        return registerRecordMapper.update(null,updateWrapper)>0;
     }
 }

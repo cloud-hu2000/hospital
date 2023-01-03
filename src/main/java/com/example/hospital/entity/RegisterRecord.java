@@ -32,12 +32,12 @@ public class RegisterRecord implements Serializable {
     /**
      * 创建挂号记录的时间
      */
-    private LocalDateTime createTime;
+    private String createTime;
 
     /**
      * 就诊时间
      */
-    private LocalDateTime visitTime;
+    private String visitTime;
 
     /**
      * 挂号费
@@ -50,9 +50,14 @@ public class RegisterRecord implements Serializable {
     private Integer isHangUp;
 
     /**
-     * 是否取消
+     * 是否取消,1为已取消
      */
-    private String isCanceled;
+    private Integer isCanceled;
+
+    /**
+     * 是否退费，0为未退费，1为已退费
+     */
+    private Integer isRefunded;
 
     /**
      * 病人id

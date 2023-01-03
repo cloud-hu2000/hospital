@@ -1,6 +1,7 @@
 package com.example.hospital.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.hospital.dto.BackToFrontPrescription;
 import com.example.hospital.dto.FrontToBackPrescription;
 import com.example.hospital.entity.Drug;
@@ -88,5 +89,24 @@ public class PrescriptionDaoImpl extends ServiceImpl<PrescriptionMapper, Prescri
     @Override
     public boolean receive(Integer id) {
         return prescriptionMapper.receive(id)>0;
+    }
+
+    @Override
+    public boolean drugRefund(Integer prescriptionId) {
+        Prescription prescription = prescriptionMapper.selectById(prescriptionId);
+        //没有付款
+        if(prescription.getIsPaid()<=0){
+            return false;
+        }
+        //付款了但是已经拿了药
+        if(prescription.getIsReceived()>0){
+            return false;
+        }
+        //付款没拿药
+        System.out.println("模拟支付退款接口");
+        UpdateWrapper<Prescription> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",prescriptionId).set("is_refunded",1);
+        prescriptionMapper.update(null,updateWrapper);
+        return true;
     }
 }

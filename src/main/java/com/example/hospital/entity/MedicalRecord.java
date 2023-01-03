@@ -31,7 +31,7 @@ public class MedicalRecord implements Serializable {
     /**
      * 病历书写时间
      */
-    private LocalDateTime createTime;
+    private String createTime;
 
     /**
      * 药敏史

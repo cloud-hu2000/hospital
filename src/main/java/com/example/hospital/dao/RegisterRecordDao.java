@@ -15,4 +15,10 @@ public interface RegisterRecordDao extends IService<RegisterRecord> {
     public boolean addRecord(RegisterRecord registerRecord);
 
     RegisterRecord checkRecord(int PatientId);
+
+    boolean hangUp(Integer id);
+
+    boolean cancelHangUp(Integer id);
+
+    boolean cancelRegister(Integer recordId);
 }
