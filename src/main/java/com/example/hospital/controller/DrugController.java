@@ -4,6 +4,7 @@ package com.example.hospital.controller;
 import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.DrugDaoImpl;
 import com.example.hospital.dto.Result;
+import com.example.hospital.entity.AuditResult;
 import com.example.hospital.entity.Drug;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,15 @@ public class DrugController {
     @GetMapping
     public Result getAllDrug() {
         List<Drug> list = drugDaoImpl.getAllDrug();
+        Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
+        return new Result(code, list, msg);
+    }
+
+    // 分页查询(1页10条记录)
+    @GetMapping("/page")
+    public Result getPage() {
+        List<Drug> list = drugDaoImpl.getPage();
         Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
         String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
         return new Result(code, list, msg);

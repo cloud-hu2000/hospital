@@ -59,12 +59,20 @@ public class CheckReportController {
 
     // 查找全部
     @GetMapping
-    public Result getAll(){
-        List<CheckReport> list=checkReportDaoImpl.getAll();
-        Integer code=list!=null?Code.GET_OK:Code.GET_ERR;
-        String msg=list!=null?"数据查询成功！":"数据查询失败，请重试！";
-        return new Result(code,list,msg);
+    public Result getAll() {
+        List<CheckReport> list = checkReportDaoImpl.getAll();
+        Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
+        return new Result(code, list, msg);
     }
 
+    // 分页查询(1页10条记录)
+    @GetMapping("/page")
+    public Result getPage() {
+        List<CheckReport> list = checkReportDaoImpl.getPage();
+        Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
+        return new Result(code, list, msg);
+    }
 }
 

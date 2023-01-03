@@ -1,5 +1,7 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.hospital.entity.AuditResult;
 import com.example.hospital.entity.MedicalRecord;
 import com.example.hospital.mapper.MedicalRecordMapper;
 import com.example.hospital.dao.MedicalRecordDao;
@@ -40,5 +42,11 @@ public class MedicalRecordDaoImpl extends ServiceImpl<MedicalRecordMapper, Medic
 
     public List<MedicalRecord> getAll() {
         return medicalRecordMapper.selectList(null);
+    }
+
+    public List<MedicalRecord> getPage() {
+        Page<MedicalRecord> page = new Page<>(1, 10);
+        medicalRecordMapper.selectPage(page, null);
+        return page.getRecords();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.hospital.entity.CheckReport;
 import com.example.hospital.mapper.CheckReportMapper;
 import com.example.hospital.dao.CheckReportDao;
@@ -46,5 +47,11 @@ public class CheckReportDaoImpl extends ServiceImpl<CheckReportMapper, CheckRepo
     public List<CheckReport> getAll() {
         List<CheckReport> list = checkReportMapper.selectList(null);
         return list;
+    }
+
+    public List<CheckReport> getPage() {
+        Page<CheckReport> page = new Page<>(1, 10);
+        checkReportMapper.selectPage(page, null);
+        return page.getRecords();
     }
 }

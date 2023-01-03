@@ -1,5 +1,7 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.hospital.entity.AuditResult;
 import com.example.hospital.entity.Department;
 import com.example.hospital.mapper.DepartmentMapper;
 import com.example.hospital.dao.DepartmentDao;
@@ -45,5 +47,11 @@ public class DepartmentDaoImpl extends ServiceImpl<DepartmentMapper, Department>
     public List<Department> getAll() {
         List<Department> list = departmentMapper.selectList(null);
         return list;
+    }
+
+    public List<Department> getPage() {
+        Page<Department> page = new Page<>(1, 10);
+        departmentMapper.selectPage(page, null);
+        return page.getRecords();
     }
 }
