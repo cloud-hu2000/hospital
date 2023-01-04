@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -38,9 +40,9 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
     }
 
     @Override
-    public boolean cancelHangUp(Integer id) {
+    public boolean cancelHangUp(Integer recordId) {
         UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",id).set("is_hang_up",0);
+        updateWrapper.eq("id",recordId).set("is_hang_up",0);
         return registerRecordMapper.update(null,updateWrapper)>0;
     }
 
@@ -49,5 +51,20 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
         UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id",recordId).set("is_canceled",1);
         return registerRecordMapper.update(null,updateWrapper)>0;
+    }
+
+
+
+    @Override
+    public List registerComplete(int recordId) {
+//        //更改
+//        UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
+//        updateWrapper.eq("id",recordId).set("is_completed",1);
+//        registerRecordMapper.update(null, updateWrapper);
+//
+//        //返回后续队列
+//
+//        return ;
+        return null;
     }
 }

@@ -23,17 +23,42 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterRecordController {
     @Autowired
     RegisterRecordDaoImpl registerRecordDao;
+
+    /**
+     * 医生添加病历
+     * @author CloudHu
+     * @date 2023/1/4 15:19
+     */
     @RequestMapping("/addRecord")
     public Result addRecord(RegisterRecord registerRecord){
         boolean flag = registerRecordDao.addRecord(registerRecord);
         return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
+    /**
+     * 医生、患者查看病历
+     * @author CloudHu
+     * @date 2023/1/4 15:19
+     */
     @RequestMapping("/checkRecord")
-    public Result checkRecord(int patientId){
-        RegisterRecord registerRecord = registerRecordDao.checkRecord(patientId);
+    public Result checkRecord(int recordId){
+        RegisterRecord registerRecord = registerRecordDao.checkRecord(recordId);
         return new Result(registerRecord==null? Code.GET_OK:Code.GET_OK,registerRecord);
     }
+
+//    /**
+//     * 医生完成诊断，返回后续的队列
+//     * @author CloudHu
+//     * @date 2023/1/4 15:19
+//     */
+//    @RequestMapping("/registerComplete")
+//    public Result registerComplete(int recordId){
+//        registerRecordDao.registerComplete(recordId);
+//        return new Result(isCompleted? Code.SAVE_OK:Code.SAVE_ERR,isCompleted);
+//    }
+
+
+
 
 
 }

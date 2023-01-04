@@ -48,5 +48,6 @@ public class PrescriptionController {
         boolean flag = prescriptionDao.receive(id);
         return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
+
 }
 

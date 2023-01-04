@@ -3,11 +3,7 @@ package com.example.hospital.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -18,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author CloudHu
- * @since 2022-12-28
+ * @since 2023-01-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -34,7 +30,7 @@ public class Prescription implements Serializable {
     /**
      * 出单时间
      */
-    private String  createTime;
+    private String createTime;
 
     /**
      * 是否拿药，0为未拿，1为已拿
@@ -45,6 +41,11 @@ public class Prescription implements Serializable {
      * 是否付费，0为未付费，1为已付费
      */
     private Integer isPaid;
+
+    /**
+     * 是否退费，0为未退费，1为已退费
+     */
+    private Integer isRefunded;
 
     /**
      * 患者id

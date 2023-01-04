@@ -1,5 +1,6 @@
 package com.example.hospital.dao;
 
+import com.example.hospital.dto.DepartmentAndStaff;
 import com.example.hospital.entity.Staff;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -24,4 +25,6 @@ public interface StaffDao extends IService<Staff> {
     Staff getStaffByID(int id);
 
     List<Staff> getAllStaff();
+
+    List<DepartmentAndStaff> getAllDoctor();
 }

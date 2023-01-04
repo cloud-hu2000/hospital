@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author CloudHu
- * @since 2022-12-28
+ * @since 2023-01-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -49,14 +48,5 @@ public class Drug implements Serializable {
      */
     private Integer inventory;
 
-    @Override
-    public String toString() {
-        return "Drug{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", manufactor='" + manufactor + '\'' +
-                ", price=" + price +
-                ", inventory=" + inventory +
-                '}';
-    }
+
 }

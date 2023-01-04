@@ -3,6 +3,8 @@ package com.example.hospital.dao;
 import com.example.hospital.entity.RegisterRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -18,7 +20,9 @@ public interface RegisterRecordDao extends IService<RegisterRecord> {
 
     boolean hangUp(Integer id);
 
-    boolean cancelHangUp(Integer id);
+    boolean cancelHangUp(Integer recordId);
 
     boolean cancelRegister(Integer recordId);
+
+    List registerComplete(int recordId);
 }

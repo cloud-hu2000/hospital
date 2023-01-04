@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author CloudHu
- * @since 2022-12-28
+ * @since 2023-01-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -61,6 +61,11 @@ public class Staff implements Serializable {
      * 职工类型，有护士、配药师、药剂师、医生
      */
     private String type;
+
+    /**
+     * 科室id
+     */
+    private Integer departmentId;
 
 
 }

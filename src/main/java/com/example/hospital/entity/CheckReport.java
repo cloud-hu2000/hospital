@@ -1,5 +1,6 @@
 package com.example.hospital.entity;
 
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -14,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author CloudHu
- * @since 2022-12-28
+ * @since 2023-01-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -36,6 +37,11 @@ public class CheckReport implements Serializable {
      * 出单时间
      */
     private String createTime;
+
+    /**
+     * 价格
+     */
+    private BigDecimal price;
 
     /**
      * 是否缴费，0为未缴费，1为已缴费
