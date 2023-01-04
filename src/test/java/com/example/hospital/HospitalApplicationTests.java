@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @SpringBootTest
 class HospitalApplicationTests {
@@ -27,5 +26,7 @@ class HospitalApplicationTests {
 		String s = JSONUtil.toJsonStr(drug);
 		System.out.println(s);
 	}
+
+
 
 }

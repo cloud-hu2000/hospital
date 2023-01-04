@@ -1,5 +1,6 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.hospital.entity.AuditResult;
 import com.example.hospital.entity.Drug;
@@ -9,7 +10,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,6 +47,14 @@ public class DrugDaoImpl extends ServiceImpl<DrugMapper, Drug> implements DrugDa
     public Drug getDrugByID(int id) {
         Drug drug = drugMapper.selectById(id);
         return drug;
+    }
+
+    public List<Drug> getDrugByName(Drug drug) {
+        String name = drug.getName();
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.like("name", name);
+        List<Drug> list = drugMapper.selectList(wrapper);
+        return list;
     }
 
     public List<Drug> getAllDrug() {
