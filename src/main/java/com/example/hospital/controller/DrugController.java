@@ -1,7 +1,6 @@
 package com.example.hospital.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.DrugDaoImpl;
 import com.example.hospital.dto.Result;
