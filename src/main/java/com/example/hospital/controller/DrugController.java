@@ -50,7 +50,7 @@ public class DrugController {
     }
 
     // 按id查找药品
-    @GetMapping("/id/{id}")
+    @RequestMapping("/id/{id}")
     public Result getDrugByID(@PathVariable int id) {
         Drug drug = drugDaoImpl.getDrugByID(id);
         Integer code = drug != null ? Code.GET_OK : Code.GET_ERR;
@@ -77,7 +77,7 @@ public class DrugController {
     }
 
     // 分页查询(1页10条记录)
-    @GetMapping("/page")
+    @RequestMapping("/page")
     public Result getPage() {
         List<Drug> list = drugDaoImpl.getPage();
         Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
