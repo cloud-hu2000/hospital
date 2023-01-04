@@ -44,8 +44,8 @@ public class AuditResultDaoImpl extends ServiceImpl<AuditResultMapper, AuditResu
         return list;
     }
 
-    public List<AuditResult> getPage() {
-        Page<AuditResult> page = new Page<>(1, 10);
+    public List<AuditResult> getPage(int num) {
+        Page<AuditResult> page = new Page<>(num, 10);
         auditResultMapper.selectPage(page, null);
         return page.getRecords();
     }

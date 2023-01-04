@@ -49,8 +49,8 @@ public class CheckReportDaoImpl extends ServiceImpl<CheckReportMapper, CheckRepo
         return list;
     }
 
-    public List<CheckReport> getPage() {
-        Page<CheckReport> page = new Page<>(1, 10);
+    public List<CheckReport> getPage(int num) {
+        Page<CheckReport> page = new Page<>(num, 10);
         checkReportMapper.selectPage(page, null);
         return page.getRecords();
     }

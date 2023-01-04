@@ -49,8 +49,8 @@ public class DepartmentDaoImpl extends ServiceImpl<DepartmentMapper, Department>
         return list;
     }
 
-    public List<Department> getPage() {
-        Page<Department> page = new Page<>(1, 10);
+    public List<Department> getPage(int num) {
+        Page<Department> page = new Page<>(num, 10);
         departmentMapper.selectPage(page, null);
         return page.getRecords();
     }
