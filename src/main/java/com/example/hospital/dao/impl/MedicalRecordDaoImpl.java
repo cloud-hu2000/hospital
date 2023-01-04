@@ -44,8 +44,8 @@ public class MedicalRecordDaoImpl extends ServiceImpl<MedicalRecordMapper, Medic
         return medicalRecordMapper.selectList(null);
     }
 
-    public List<MedicalRecord> getPage() {
-        Page<MedicalRecord> page = new Page<>(1, 10);
+    public List<MedicalRecord> getPage(int num) {
+        Page<MedicalRecord> page = new Page<>(num, 10);
         medicalRecordMapper.selectPage(page, null);
         return page.getRecords();
     }

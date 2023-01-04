@@ -78,8 +78,8 @@ public class DrugController {
 
     // 分页查询(1页10条记录)
     @RequestMapping("/page")
-    public Result getPage() {
-        List<Drug> list = drugDaoImpl.getPage();
+    public Result getPage(@PathVariable int page) {
+        List<Drug> list = drugDaoImpl.getPage(page);
         Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
         String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
         return new Result(code, list, msg);

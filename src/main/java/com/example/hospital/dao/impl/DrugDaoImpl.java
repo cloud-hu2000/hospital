@@ -62,8 +62,8 @@ public class DrugDaoImpl extends ServiceImpl<DrugMapper, Drug> implements DrugDa
         return list;
     }
 
-    public List<Drug> getPage() {
-        Page<Drug> page = new Page<>(1, 10);
+    public List<Drug> getPage(int num) {
+        Page<Drug> page = new Page<>(num, 10);
         drugMapper.selectPage(page, null);
         return page.getRecords();
     }
