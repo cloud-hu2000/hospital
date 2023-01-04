@@ -24,6 +24,24 @@ public class CheckReportDaoImpl extends ServiceImpl<CheckReportMapper, CheckRepo
     @Autowired
     private CheckReportMapper checkReportMapper;
 
+    public int if_ispaid(CheckReport checkReport) {
+        int id = checkReport.getId();
+        CheckReport temp = checkReportMapper.selectById(id);
+        return temp.getIsPaid();
+    }
+
+    public int if_ischecked(CheckReport checkReport) {
+        int id = checkReport.getId();
+        CheckReport temp = checkReportMapper.selectById(id);
+        return temp.getIsChecked();
+    }
+
+    public int if_isrefunded(CheckReport checkReport) {
+        int id = checkReport.getId();
+        CheckReport temp = checkReportMapper.selectById(id);
+        return temp.getIsRefunded();
+    }
+
     public boolean insert(CheckReport checkReport) {
         boolean flag = checkReportMapper.insert(checkReport) > 0;
         return flag;

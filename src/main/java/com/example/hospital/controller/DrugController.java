@@ -1,6 +1,7 @@
 package com.example.hospital.controller;
 
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.DrugDaoImpl;
 import com.example.hospital.dto.Result;
@@ -25,6 +26,12 @@ public class DrugController {
 
     @Autowired
     private DrugDaoImpl drugDaoImpl;
+
+    @RequestMapping("/updatenumber")
+    public Result updateNumber(@RequestBody Drug drug) {
+        boolean flag = drugDaoImpl.updateNumber(drug);
+        return new Result(flag ? Code.UPDATE_OK : Code.UPDATE_ERR, flag);
+    }
 
     // 添加药品
     @PostMapping
@@ -59,7 +66,7 @@ public class DrugController {
     }
 
     // 按名字查找药品
-    @GetMapping("/name")
+    @RequestMapping("/name")
     public Result getDrugByName(@RequestBody Drug drug) {
         List<Drug> list = drugDaoImpl.getDrugByName(drug);
         Integer code = list != null ? Code.GET_OK : Code.GET_ERR;

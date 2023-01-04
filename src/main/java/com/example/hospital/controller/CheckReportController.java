@@ -25,6 +25,33 @@ public class CheckReportController {
     @Autowired
     private CheckReportDaoImpl checkReportDaoImpl;
 
+    // 查看是否缴费
+    @RequestMapping("/ispaid")
+    public Result if_ispaid(@RequestBody CheckReport checkReport) {
+        int flag = checkReportDaoImpl.if_ispaid(checkReport);
+        Integer code = Code.GET_OK;
+        String msg = flag == 0 ? "未缴费！" : "已缴费！";
+        return new Result(code, flag, msg);
+    }
+
+    // 查看是否检查
+    @RequestMapping("/ischecked")
+    public Result if_ischecked(@RequestBody CheckReport checkReport) {
+        int flag = checkReportDaoImpl.if_ischecked(checkReport);
+        Integer code = Code.GET_OK;
+        String msg = flag == 0 ? "未检查！" : "已检查！";
+        return new Result(code, flag, msg);
+    }
+
+    // 查看是否退费
+    @RequestMapping("/isrefunded")
+    public Result if_isrefunded(@RequestBody CheckReport checkReport) {
+        int flag = checkReportDaoImpl.if_isrefunded(checkReport);
+        Integer code = Code.GET_OK;
+        String msg = flag == 0 ? "未退费！" : "已退费！";
+        return new Result(code, flag, msg);
+    }
+
     // 添加
     @PostMapping
     public Result insert(@RequestBody CheckReport checkReport) {

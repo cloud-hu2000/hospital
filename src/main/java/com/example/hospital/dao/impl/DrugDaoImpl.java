@@ -28,6 +28,16 @@ public class DrugDaoImpl extends ServiceImpl<DrugMapper, Drug> implements DrugDa
     @Autowired
     private DrugMapper drugMapper;
 
+    public boolean updateNumber(Drug drug) {
+        int id = drug.getId();
+        Drug old = drugMapper.selectById(id);
+        int old_inventory = old.getInventory();
+        int used = drug.getInventory();
+        int new_inventory = old_inventory - used;
+        old.setInventory(new_inventory);
+        return drugMapper.updateById(old) > 0;
+    }
+
     public boolean insertDrug(Drug drug) {
         boolean flag = drugMapper.insert(drug) > 0;
         return flag;
