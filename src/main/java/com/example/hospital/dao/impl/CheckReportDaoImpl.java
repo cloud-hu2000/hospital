@@ -1,5 +1,6 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.hospital.entity.CheckReport;
 import com.example.hospital.mapper.CheckReportMapper;
@@ -24,18 +25,42 @@ public class CheckReportDaoImpl extends ServiceImpl<CheckReportMapper, CheckRepo
     @Autowired
     private CheckReportMapper checkReportMapper;
 
+    public boolean checkReportRefund(Integer checkReportID){
+        CheckReport checkReport=checkReportMapper.selectById(checkReportID);
+
+        // 没有付款
+        if (checkReport.getIsPaid()<=0){
+            return false;
+        }
+
+        // 付款但是已经检查
+        if (checkReport.getIsChecked()>0){
+            return false;
+        }
+
+        // 付款未检查
+        System.out.println("模拟支付退款接口");
+        UpdateWrapper<CheckReport> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.eq("id",checkReportID).set("is_refunded",1);
+        checkReportMapper.update(null,updateWrapper);
+        return true;
+    }
+
+    // 查看是否支付状态
     public int if_ispaid(CheckReport checkReport) {
         int id = checkReport.getId();
         CheckReport temp = checkReportMapper.selectById(id);
         return temp.getIsPaid();
     }
 
+    // 查看是否检查状态
     public int if_ischecked(CheckReport checkReport) {
         int id = checkReport.getId();
         CheckReport temp = checkReportMapper.selectById(id);
         return temp.getIsChecked();
     }
 
+    // 检查是否退款状态
     public int if_isrefunded(CheckReport checkReport) {
         int id = checkReport.getId();
         CheckReport temp = checkReportMapper.selectById(id);

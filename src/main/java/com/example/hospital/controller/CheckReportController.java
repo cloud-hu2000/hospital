@@ -25,6 +25,13 @@ public class CheckReportController {
     @Autowired
     private CheckReportDaoImpl checkReportDaoImpl;
 
+    // 检查单退费
+    @RequestMapping("/refund/{id}")
+    public Result checkReportRefund(@PathVariable int id){
+        boolean flag=checkReportDaoImpl.checkReportRefund(id);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
+
     // 查看是否缴费
     @RequestMapping("/ispaid")
     public Result if_ispaid(@RequestBody CheckReport checkReport) {
