@@ -25,10 +25,31 @@ public class CheckReportController {
     @Autowired
     private CheckReportDaoImpl checkReportDaoImpl;
 
+    // 变更退款状态
+    @RequestMapping("/changeRefunded/{id}")
+    public Result changeRefunded(@PathVariable int id) {
+        boolean flag = checkReportDaoImpl.changeRefunded(id);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
+
+    // 变更检查状态
+    @RequestMapping("/changeChecked/{id}")
+    public Result changeChecked(@PathVariable int id) {
+        boolean flag = checkReportDaoImpl.changeChecked(id);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
+
+    // 变更支付状态
+    @RequestMapping("/changePaid/{id}")
+    public Result changePaid(@PathVariable int id) {
+        boolean flag = checkReportDaoImpl.changePaid(id);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
+
     // 检查单退费
     @RequestMapping("/refund/{id}")
-    public Result checkReportRefund(@PathVariable int id){
-        boolean flag=checkReportDaoImpl.checkReportRefund(id);
+    public Result checkReportRefund(@PathVariable int id) {
+        boolean flag = checkReportDaoImpl.checkReportRefund(id);
         return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
     }
 

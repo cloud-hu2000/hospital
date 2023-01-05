@@ -25,24 +25,42 @@ public class CheckReportDaoImpl extends ServiceImpl<CheckReportMapper, CheckRepo
     @Autowired
     private CheckReportMapper checkReportMapper;
 
-    public boolean checkReportRefund(Integer checkReportID){
-        CheckReport checkReport=checkReportMapper.selectById(checkReportID);
+    public boolean changeRefunded(Integer checkReportID) {
+        UpdateWrapper<CheckReport> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", checkReportID).set("is_refunded", 1);
+        return checkReportMapper.update(null, updateWrapper) > 0;
+    }
+
+    public boolean changeChecked(Integer checkReportID) {
+        UpdateWrapper<CheckReport> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", checkReportID).set("is_checked", 1);
+        return checkReportMapper.update(null, updateWrapper) > 0;
+    }
+
+    public boolean changePaid(Integer checkReportID) {
+        UpdateWrapper<CheckReport> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", checkReportID).set("is_paid", 1);
+        return checkReportMapper.update(null, updateWrapper) > 0;
+    }
+
+    public boolean checkReportRefund(Integer checkReportID) {
+        CheckReport checkReport = checkReportMapper.selectById(checkReportID);
 
         // 没有付款
-        if (checkReport.getIsPaid()<=0){
+        if (checkReport.getIsPaid() <= 0) {
             return false;
         }
 
         // 付款但是已经检查
-        if (checkReport.getIsChecked()>0){
+        if (checkReport.getIsChecked() > 0) {
             return false;
         }
 
         // 付款未检查
         System.out.println("模拟支付退款接口");
-        UpdateWrapper<CheckReport> updateWrapper=new UpdateWrapper<>();
-        updateWrapper.eq("id",checkReportID).set("is_refunded",1);
-        checkReportMapper.update(null,updateWrapper);
+        UpdateWrapper<CheckReport> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", checkReportID).set("is_refunded", 1);
+        checkReportMapper.update(null, updateWrapper);
         return true;
     }
 
