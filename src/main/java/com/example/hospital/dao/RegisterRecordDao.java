@@ -27,4 +27,6 @@ public interface RegisterRecordDao extends IService<RegisterRecord> {
     List registerComplete(int recordId,int doctorId);
 
     List<RegisterRecord> getAllRegisterRecord();
+
+    boolean pay(Integer recordId);
 }

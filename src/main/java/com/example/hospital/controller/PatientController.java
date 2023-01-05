@@ -32,16 +32,6 @@ public class PatientController {
 
 
 
-    /**
-     * 取消挂号
-     * @author CloudHu
-     * @date 2023/1/3 13:51
-    */
-    @RequestMapping("/cancelRegister")
-    public Result cancelRegister(Integer recordId){
-        boolean flag = registerRecordDao.cancelRegister(recordId);
-        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
-    }
     // 添加患者
     @PostMapping
     public Result insertPatient(@RequestBody Patient patient) {

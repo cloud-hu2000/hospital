@@ -30,7 +30,30 @@ public class RegisterRecordController {
     RegisterRecordDaoImpl registerRecordDao;
 
     /**
-     * 医生添加病历
+     * 取消挂号
+     * @author CloudHu
+     * @date 2023/1/3 13:51
+     */
+    @RequestMapping("/cancelRegister")
+    public Result cancelRegister(Integer recordId){
+        boolean flag = registerRecordDao.cancelRegister(recordId);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
+
+    /**
+     * 取消挂号
+     * @author CloudHu
+     * @date 2023/1/3 13:51
+     */
+    @RequestMapping("/pay")
+    public Result pay(Integer recordId){
+        boolean flag = registerRecordDao.pay(recordId);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
+
+
+    /**
+     * 挂号
      * @author CloudHu
      * @date 2023/1/4 15:19
      */
@@ -41,7 +64,7 @@ public class RegisterRecordController {
     }
 
     /**
-     * 医生、患者查看病历
+     * 查看挂号信息
      * @author CloudHu
      * @date 2023/1/4 15:19
      */

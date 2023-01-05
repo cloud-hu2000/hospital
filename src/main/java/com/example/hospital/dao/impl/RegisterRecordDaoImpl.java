@@ -90,4 +90,11 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
         List<RegisterRecord> list = registerRecordMapper.selectList(null);
         return list;
     }
+
+    @Override
+    public boolean pay(Integer recordId) {
+        UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",recordId).eq("is_canceled",0).eq("is_hang_up",0).set("is_paid",1);
+        return registerRecordMapper.update(null,updateWrapper)>0;
+    }
 }
