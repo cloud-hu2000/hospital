@@ -2,20 +2,21 @@ package com.example.hospital.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.example.hospital.dto.AuditDTO;
 import com.example.hospital.dto.BackToFrontPrescription;
 import com.example.hospital.dto.FrontToBackPrescription;
 import com.example.hospital.entity.Drug;
+import com.example.hospital.entity.MedicalRecord;
 import com.example.hospital.entity.Prescription;
 import com.example.hospital.entity.PrescriptionContent;
-import com.example.hospital.mapper.DrugMapper;
-import com.example.hospital.mapper.PrescriptionContentMapper;
-import com.example.hospital.mapper.PrescriptionMapper;
+import com.example.hospital.mapper.*;
 import com.example.hospital.dao.PrescriptionDao;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,11 +34,15 @@ public class PrescriptionDaoImpl extends ServiceImpl<PrescriptionMapper, Prescri
     @Autowired
     private PrescriptionMapper prescriptionMapper;
 
+
     @Autowired
     private PrescriptionContentMapper prescriptionContentMapper;
 
     @Autowired
     private DrugMapper drugMapper;
+
+    @Autowired
+    private MedicalRecordMapper medicalRecordMapper;
 
     @Override
     @Transactional
@@ -123,5 +128,22 @@ public class PrescriptionDaoImpl extends ServiceImpl<PrescriptionMapper, Prescri
     @Override
     public boolean isDistributed(Integer id) {
         return prescriptionMapper.selectById(id).getIsDistributed()==1;
+    }
+
+    @Override
+    public List<AuditDTO> getUnauditedPrescription() {
+        List<AuditDTO> list= new ArrayList<>();
+        QueryWrapper<Prescription> wrapper = new QueryWrapper<>();
+        wrapper.eq("is_paid",1).eq("is_distributed",0);
+        List<Prescription> prescriptionList = prescriptionMapper.selectList(wrapper);
+        for (Prescription prescription : prescriptionList) {
+            Integer patientId = prescription.getPatientId();
+            QueryWrapper<MedicalRecord> queryWrapper = new QueryWrapper<>();
+            wrapper.eq("patient_id",patientId);
+            MedicalRecord medicalRecord = medicalRecordMapper.selectList(queryWrapper).get(0);
+            BackToFrontPrescription backToFrontPrescription = checkPrescription(prescription.getId());
+            list.add(new AuditDTO(medicalRecord,backToFrontPrescription));
+        }
+        return list;
     }
 }

@@ -1,9 +1,12 @@
 package com.example.hospital.dao;
 
+import com.example.hospital.dto.AuditDTO;
 import com.example.hospital.dto.BackToFrontPrescription;
 import com.example.hospital.dto.FrontToBackPrescription;
 import com.example.hospital.entity.Prescription;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,4 +33,6 @@ public interface PrescriptionDao extends IService<Prescription> {
     boolean isReceived(Integer id);
 
     boolean isDistributed(Integer id);
+
+    List<AuditDTO> getUnauditedPrescription();
 }

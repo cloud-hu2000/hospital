@@ -3,12 +3,15 @@ package com.example.hospital.controller;
 
 import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.PrescriptionDaoImpl;
+import com.example.hospital.dto.AuditDTO;
 import com.example.hospital.dto.BackToFrontPrescription;
 import com.example.hospital.dto.FrontToBackPrescription;
 import com.example.hospital.dto.Result;
 import com.example.hospital.entity.Prescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +27,13 @@ public class PrescriptionController {
 
     @Autowired
     private PrescriptionDaoImpl prescriptionDao;
+
+
+    @RequestMapping("/getUnauditedPrescription")
+    public Result getUnauditedPrescription(){
+        List<AuditDTO> list = prescriptionDao.getUnauditedPrescription();
+        return new Result(list ==null ? Code.GET_OK:Code.GET_ERR,list);
+    }
 
     @RequestMapping("/addPrescription")
     public Result addPrescription(@RequestBody FrontToBackPrescription frontToBackPrescription){
