@@ -84,4 +84,10 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
 
         return res;
     }
+
+    @Override
+    public List<RegisterRecord> getAllRegisterRecord() {
+        List<RegisterRecord> list = registerRecordMapper.selectList(null);
+        return list;
+    }
 }

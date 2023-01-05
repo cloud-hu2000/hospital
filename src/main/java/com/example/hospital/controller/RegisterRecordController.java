@@ -5,7 +5,9 @@ import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.RegisterRecordDaoImpl;
 import com.example.hospital.dto.Result;
 import com.example.hospital.entity.RegisterRecord;
+import com.example.hospital.entity.RegisterRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -60,6 +62,13 @@ public class RegisterRecordController {
         return new Result(list==null? Code.SAVE_OK:Code.SAVE_ERR,list);
     }
 
+    @GetMapping
+    public Result getAllRegisterRecord() {
+        List<RegisterRecord> list = registerRecordDao.getAllRegisterRecord();
+        Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
+        return new Result(code, list, msg);
+    }
 
 
 
