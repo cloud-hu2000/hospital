@@ -1,5 +1,6 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.hospital.entity.AuditResult;
 import com.example.hospital.mapper.AuditResultMapper;
@@ -53,5 +54,13 @@ public class AuditResultDaoImpl extends ServiceImpl<AuditResultMapper, AuditResu
     @Override
     public boolean isPassed(Integer id) {
         return auditResultMapper.selectById(id).getIsPassed()==1;
+    }
+
+    @Override
+    public AuditResult getByPrescriptionId(Integer id) {
+        QueryWrapper<AuditResult>queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("prescription_id",id);
+        return auditResultMapper.selectOne(queryWrapper);
+
     }
 }

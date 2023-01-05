@@ -24,6 +24,13 @@ public class AuditResultController {
     @Autowired
     private AuditResultDaoImpl auditResultDaoImpl;
 
+
+    @RequestMapping("/getByPrescriptionId/{id}")
+    public Result getByPrescriptionId(@PathVariable Integer id){
+        AuditResult auditResult = auditResultDaoImpl.getByPrescriptionId(id);
+        return new Result(auditResult==null? Code.SAVE_OK:Code.SAVE_ERR,auditResult);
+    }
+
     @RequestMapping("/isPassed/{id}")
     public Result isPassed(@PathVariable Integer id){
         boolean flag = auditResultDaoImpl.isPassed(id);
