@@ -59,8 +59,10 @@ public class DrugController {
     }
 
     // 按名字查找药品
-    @GetMapping("/name")
+    @PostMapping("/name")
     public Result getDrugByName(@RequestBody Drug drug) {
+        System.out.println("搜索结果");
+        System.out.println(drug);
         List<Drug> list = drugDaoImpl.getDrugByName(drug);
         Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
         String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";

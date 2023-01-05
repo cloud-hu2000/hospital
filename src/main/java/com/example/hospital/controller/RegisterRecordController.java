@@ -6,6 +6,7 @@ import com.example.hospital.dao.impl.RegisterRecordDaoImpl;
 import com.example.hospital.dto.Result;
 import com.example.hospital.entity.RegisterRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,7 @@ public class RegisterRecordController {
      * @date 2023/1/4 15:19
      */
     @RequestMapping("/addRecord")
-    public Result addRecord(RegisterRecord registerRecord){
+    public Result addRecord(@RequestBody RegisterRecord registerRecord){
         boolean flag = registerRecordDao.addRecord(registerRecord);
         return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }

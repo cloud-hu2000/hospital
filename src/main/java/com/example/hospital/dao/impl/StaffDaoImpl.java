@@ -61,17 +61,22 @@ public class StaffDaoImpl extends ServiceImpl<StaffMapper, Staff> implements Sta
 
     @Override
     public List<DepartmentAndStaff> getAllDoctor() {
-        QueryWrapper<Staff>queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("type","医生");
-        List<Staff> doctorList = staffMapper.selectList(queryWrapper);
-        List<DepartmentAndStaff> list = new ArrayList<>();
-        for (Staff doctor : doctorList) {
-            Integer departmentId = doctor.getDepartmentId();
-            Department department = departmentMapper.selectById(departmentId);
-            list.add(new DepartmentAndStaff(department,doctor));
-        }
+        List<DepartmentAndStaff> res = new ArrayList<>();
+        List<Department> departments = departmentMapper.selectList(null);
 
-        return list;
+        for (Department department : departments) {
+
+            List<Staff> staffList = new ArrayList<>();
+            QueryWrapper<Staff>queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("department_id", department.getId());
+            List<Staff> staffs = staffMapper.selectList(queryWrapper);
+            for (Staff staff : staffs) {
+                staffList.add(staff);
+            }
+            DepartmentAndStaff departmentAndStaff = new DepartmentAndStaff(department,staffList);
+            res.add(departmentAndStaff);
+        }
+        return res;
     }
 
 
