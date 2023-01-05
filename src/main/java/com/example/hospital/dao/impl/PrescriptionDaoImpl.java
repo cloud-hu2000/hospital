@@ -146,4 +146,11 @@ public class PrescriptionDaoImpl extends ServiceImpl<PrescriptionMapper, Prescri
         }
         return list;
     }
+
+    @Override
+    public boolean distribute(Integer id) {
+        UpdateWrapper<Prescription> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",id).set("is_distributed",1);
+        return prescriptionMapper.update(null,updateWrapper)>0;
+    }
 }

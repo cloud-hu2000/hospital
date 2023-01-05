@@ -60,6 +60,12 @@ public class PrescriptionController {
         return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
+    @RequestMapping("/distribute/{id}")
+    public Result distribute(@PathVariable Integer id){
+        boolean flag = prescriptionDao.distribute(id);
+        return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
+
     @RequestMapping("/isPaid/{id}")
     public Result isPaid(@PathVariable Integer id){
         boolean flag = prescriptionDao.isPaid(id);

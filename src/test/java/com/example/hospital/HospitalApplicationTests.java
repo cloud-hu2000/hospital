@@ -7,14 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootTest
 class HospitalApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void contextLoads() throws ParseException {
 		Map<Drug,Integer>map = new HashMap<>();
 		Drug drug = new Drug();
 		drug.setId(1);
@@ -25,8 +29,12 @@ class HospitalApplicationTests {
 		map.put(drug,1);
 		String s = JSONUtil.toJsonStr(drug);
 		System.out.println(s);
+
+		Long timeLong = Long.parseLong(String.valueOf(System.currentTimeMillis()));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//要转换的时间格式
+		Date date;
+		date = sdf.parse(sdf.format(timeLong));
+		System.out.println(sdf.format(date));
 	}
-
-
 
 }

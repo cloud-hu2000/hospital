@@ -35,4 +35,7 @@ public interface PrescriptionDao extends IService<Prescription> {
     boolean isDistributed(Integer id);
 
     List<AuditDTO> getUnauditedPrescription();
+
+    boolean distribute(Integer id);
+
 }

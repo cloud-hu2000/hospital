@@ -6,7 +6,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.132.24.26/hospital_outpatient_service?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://101.132.24.26:3306/hospital_outpatient_service?serverTimezone=Asia/Shanghai
     username: root
     password: h961035277
 
