@@ -48,6 +48,11 @@ public class Prescription implements Serializable {
     private Integer isRefunded;
 
     /**
+     * 是否配药，0为未配药，1为已配药
+     */
+    private Integer isDistributed;
+
+    /**
      * 患者id
      */
     private Integer patientId;

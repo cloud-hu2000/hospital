@@ -3,6 +3,7 @@ package com.example.hospital.controller;
 
 import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.DrugDaoImpl;
+import com.example.hospital.dao.impl.PrescriptionDaoImpl;
 import com.example.hospital.dto.Result;
 import com.example.hospital.entity.AuditResult;
 import com.example.hospital.entity.Drug;
@@ -25,6 +26,19 @@ public class DrugController {
 
     @Autowired
     private DrugDaoImpl drugDaoImpl;
+    @Autowired
+    private PrescriptionDaoImpl prescriptionDao;
+
+    /**
+     * 日内瓦！退钱！
+     * @author CloudHu
+     * @date 2023/1/3 14:25
+     */
+    @RequestMapping("/drugRefund")
+    public Result drugRefund(Integer prescriptionId){
+        boolean flag = prescriptionDao.drugRefund(prescriptionId);
+        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
+    }
 
     @RequestMapping("/updatenumber")
     public Result updateNumber(@RequestBody Drug drug) {

@@ -30,19 +30,7 @@ public class PatientController {
     @Autowired
     private RegisterRecordDaoImpl registerRecordDao;
 
-    @Autowired
-    private PrescriptionDaoImpl prescriptionDao;
 
-    /**
-     * 日内瓦！退钱！
-     * @author CloudHu
-     * @date 2023/1/3 14:25
-    */
-    @RequestMapping("/drugRefund")
-    public Result drugRefund(Integer prescriptionId){
-        boolean flag = prescriptionDao.drugRefund(prescriptionId);
-        return new Result(flag ? Code.SAVE_OK : Code.SAVE_ERR, flag);
-    }
 
     /**
      * 取消挂号

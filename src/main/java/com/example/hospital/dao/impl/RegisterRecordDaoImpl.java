@@ -1,13 +1,17 @@
 package com.example.hospital.dao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.example.hospital.entity.Patient;
 import com.example.hospital.entity.RegisterRecord;
+import com.example.hospital.mapper.PatientMapper;
 import com.example.hospital.mapper.RegisterRecordMapper;
 import com.example.hospital.dao.RegisterRecordDao;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +27,8 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
 
     @Autowired
     RegisterRecordMapper registerRecordMapper;
+    @Autowired
+    PatientMapper patientMapper;
     public boolean addRecord(RegisterRecord registerRecord){
         return registerRecordMapper.insert(registerRecord)>0;
     }
@@ -57,14 +63,22 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
 
     @Override
     public List registerComplete(int recordId) {
-//        //更改
-//        UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
-//        updateWrapper.eq("id",recordId).set("is_completed",1);
-//        registerRecordMapper.update(null, updateWrapper);
-//
-//        //返回后续队列
-//
-//        return ;
-        return null;
+        //更改
+        UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",recordId).eq("is_hang_up",0).eq("is_paid",1).set("is_completed",1);
+        registerRecordMapper.update(null, updateWrapper);
+
+        //返回后续队列
+        QueryWrapper<RegisterRecord>wrapper = new QueryWrapper<>();
+        wrapper.eq("is_paid",1).eq("is_hang_up",0).eq("is_canceled",0).eq("is_completed",0).orderByAsc("visit_time");
+        List<RegisterRecord> registerRecords = registerRecordMapper.selectList(wrapper);
+        List<String> res = new ArrayList<>();
+        for (RegisterRecord registerRecord : registerRecords) {
+            Integer patientId = registerRecord.getPatientId();
+            String name = patientMapper.selectById(patientId).getName();
+            res.add(name);
+        }
+
+        return res;
     }
 }

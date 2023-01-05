@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -47,16 +49,16 @@ public class RegisterRecordController {
         return new Result(registerRecord==null? Code.GET_OK:Code.GET_OK,registerRecord);
     }
 
-//    /**
-//     * 医生完成诊断，返回后续的队列
-//     * @author CloudHu
-//     * @date 2023/1/4 15:19
-//     */
-//    @RequestMapping("/registerComplete")
-//    public Result registerComplete(int recordId){
-//        registerRecordDao.registerComplete(recordId);
-//        return new Result(isCompleted? Code.SAVE_OK:Code.SAVE_ERR,isCompleted);
-//    }
+    /**
+     * 医生完成诊断，返回后续的队列
+     * @author CloudHu
+     * @date 2023/1/4 15:19
+     */
+    @RequestMapping("/registerComplete")
+    public Result registerComplete(int recordId){
+        List list = registerRecordDao.registerComplete(recordId);
+        return new Result(list==null? Code.SAVE_OK:Code.SAVE_ERR,list);
+    }
 
 
 
