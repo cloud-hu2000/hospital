@@ -109,4 +109,19 @@ public class PrescriptionDaoImpl extends ServiceImpl<PrescriptionMapper, Prescri
         prescriptionMapper.update(null,updateWrapper);
         return true;
     }
+
+    @Override
+    public boolean isPaid(Integer id) {
+        return prescriptionMapper.selectById(id).getIsPaid()==1;
+    }
+
+    @Override
+    public boolean isReceived(Integer id) {
+        return prescriptionMapper.selectById(id).getIsReceived()==1;
+    }
+
+    @Override
+    public boolean isDistributed(Integer id) {
+        return prescriptionMapper.selectById(id).getIsDistributed()==1;
+    }
 }

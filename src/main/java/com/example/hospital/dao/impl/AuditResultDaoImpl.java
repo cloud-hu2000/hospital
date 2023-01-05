@@ -49,4 +49,9 @@ public class AuditResultDaoImpl extends ServiceImpl<AuditResultMapper, AuditResu
         auditResultMapper.selectPage(page, null);
         return page.getRecords();
     }
+
+    @Override
+    public boolean isPassed(Integer id) {
+        return auditResultMapper.selectById(id).getIsPassed()==1;
+    }
 }

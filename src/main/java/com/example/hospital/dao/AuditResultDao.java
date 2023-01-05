@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AuditResultDao extends IService<AuditResult> {
 
+    boolean isPassed(Integer id);
 }

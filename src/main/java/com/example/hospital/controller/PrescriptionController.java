@@ -49,5 +49,24 @@ public class PrescriptionController {
         return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
+    @RequestMapping("/isPaid/{id}")
+    public Result isPaid(@PathVariable Integer id){
+        boolean flag = prescriptionDao.isPaid(id);
+        return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
+
+    @RequestMapping("/isReceived/{id}")
+    public Result isReceived(@PathVariable Integer id){
+        boolean flag = prescriptionDao.isReceived(id);
+        return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
+
+    @RequestMapping("/isDistributed/{id}")
+    public Result isDistributed(@PathVariable Integer id){
+        boolean flag = prescriptionDao.isDistributed(id);
+        return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
+
+
 }
 

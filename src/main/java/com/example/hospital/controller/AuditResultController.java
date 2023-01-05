@@ -24,6 +24,12 @@ public class AuditResultController {
     @Autowired
     private AuditResultDaoImpl auditResultDaoImpl;
 
+    @RequestMapping("/isPassed/{id}")
+    public Result isPassed(@PathVariable Integer id){
+        boolean flag = auditResultDaoImpl.isPassed(id);
+        return new Result(flag? Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
+
     // 新增
     @PostMapping
     public Result insertAuditResult(@RequestBody AuditResult auditResult) {
@@ -65,5 +71,7 @@ public class AuditResultController {
         String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
         return new Result(code, list, msg);
     }
+
+
 }
 
