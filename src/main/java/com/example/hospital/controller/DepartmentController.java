@@ -4,6 +4,7 @@ package com.example.hospital.controller;
 import com.example.hospital.constant.Code;
 import com.example.hospital.dao.impl.DepartmentDaoImpl;
 import com.example.hospital.dto.Result;
+import com.example.hospital.dto.patientCheck;
 import com.example.hospital.entity.AuditResult;
 import com.example.hospital.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,15 @@ import java.util.List;
 public class DepartmentController {
     @Autowired
     private DepartmentDaoImpl departmentDaoImpl;
+
+    // 多表联查(返回患者姓名、年龄、性别、检查项目)
+    @RequestMapping("/find/{department_id}")
+    public Result find(@PathVariable int department_id){
+        List<patientCheck> list=departmentDaoImpl.find(department_id);
+        Integer code = list != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = list != null ? "数据查询成功！" : "数据查询失败，请重试！";
+        return new Result(code, list, msg);
+    }
 
     // 添加科室
     @PostMapping

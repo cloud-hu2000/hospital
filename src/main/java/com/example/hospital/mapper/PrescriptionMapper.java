@@ -15,7 +15,8 @@ import org.apache.ibatis.annotations.Update;
  * @since 2022-12-28
  */
 @Mapper
-public interface PrescriptionMapper extends BaseMapper<Prescription> {
+public interface
+PrescriptionMapper extends BaseMapper<Prescription> {
 
     @Update("UPDATE prescription SET is_paid=1 WHERE id = #{id}")
     int pay(Integer id);

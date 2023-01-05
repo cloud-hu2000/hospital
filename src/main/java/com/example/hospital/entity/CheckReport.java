@@ -69,5 +69,9 @@ public class CheckReport implements Serializable {
      */
     private Integer checkDoctorId;
 
+    private Integer patientId;
+
+    private Integer departmentId;
+
 
 }

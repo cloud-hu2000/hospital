@@ -30,9 +30,7 @@ public class Patient implements Serializable {
     /**
      * 账号名
      */
-    private String 
-
-nickname;
+    //private String nickname;
 
     /**
      * 密码
