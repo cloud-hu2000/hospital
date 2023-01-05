@@ -54,7 +54,7 @@ public class PrescriptionDaoImpl extends ServiceImpl<PrescriptionMapper, Prescri
         QueryWrapper<Prescription> queryWrapper = new QueryWrapper();
         queryWrapper.eq("patient_id",prescription.getPatientId());
         List<Prescription> prescriptions = prescriptionMapper.selectList(queryWrapper);
-        Integer prescriptionId = prescriptions.get(0).getId();
+        Integer prescriptionId = prescriptions.get(prescriptions.size()-1).getId();
         //关联药单和药品
         List<Map<String, Integer>> drugList = frontToBackPrescription.getDrugs();
         for (Map<String, Integer> map : drugList) {

@@ -35,6 +35,7 @@ public class PrescriptionController {
         return new Result(list ==null ? Code.GET_OK:Code.GET_ERR,list);
     }
 
+
     @RequestMapping("/addPrescription")
     public Result addPrescription(@RequestBody FrontToBackPrescription frontToBackPrescription){
         boolean flag = prescriptionDao.addPrescription(frontToBackPrescription);
