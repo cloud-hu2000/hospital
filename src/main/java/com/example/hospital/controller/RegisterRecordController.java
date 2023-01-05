@@ -55,8 +55,8 @@ public class RegisterRecordController {
      * @date 2023/1/4 15:19
      */
     @RequestMapping("/registerComplete")
-    public Result registerComplete(int recordId){
-        List list = registerRecordDao.registerComplete(recordId);
+    public Result registerComplete(int recordId,int doctorId){
+        List list = registerRecordDao.registerComplete(recordId,doctorId);
         return new Result(list==null? Code.SAVE_OK:Code.SAVE_ERR,list);
     }
 

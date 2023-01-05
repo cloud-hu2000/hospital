@@ -2,6 +2,8 @@ package com.example.hospital.dao.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.hospital.entity.AuditResult;
 import com.example.hospital.entity.Patient;
 import com.example.hospital.entity.RegisterRecord;
 import com.example.hospital.mapper.PatientMapper;
@@ -62,16 +64,17 @@ public class RegisterRecordDaoImpl extends ServiceImpl<RegisterRecordMapper, Reg
 
 
     @Override
-    public List registerComplete(int recordId) {
+    public List registerComplete(int recordId,int doctorId) {
         //更改
         UpdateWrapper<RegisterRecord> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id",recordId).eq("is_hang_up",0).eq("is_paid",1).set("is_completed",1);
         registerRecordMapper.update(null, updateWrapper);
 
-        //返回后续队列
+        //返回后续排队的十个人
         QueryWrapper<RegisterRecord>wrapper = new QueryWrapper<>();
-        wrapper.eq("is_paid",1).eq("is_hang_up",0).eq("is_canceled",0).eq("is_completed",0).orderByAsc("visit_time");
-        List<RegisterRecord> registerRecords = registerRecordMapper.selectList(wrapper);
+        Page<RegisterRecord> page = new Page<>(0, 10);
+        wrapper.eq("is_paid",1).eq("is_hang_up",0).eq("is_canceled",0).eq("is_completed",0).eq("doctor_id",doctorId).orderByAsc("visit_time");
+        List<RegisterRecord> registerRecords = registerRecordMapper.selectPage(page,wrapper).getRecords();
         List<String> res = new ArrayList<>();
         for (RegisterRecord registerRecord : registerRecords) {
             Integer patientId = registerRecord.getPatientId();
